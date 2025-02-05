@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-html
+  namespace: html-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message-html
+  template:
+    metadata:
+      labels:
+        app: message-html
+    spec:
+      containers:
+      - name: message-html
+        image: nginx:latest
+        ports:
+        - containerPort: 80
