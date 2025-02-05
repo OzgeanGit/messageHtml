@@ -14,7 +14,14 @@ spec:
         app: message-html
     spec:
       containers:
-      - name: message-html
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+        - name: nginx
+          image: nginx:latest
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html-volume
+          gitRepo:
+            repository: https://github.com/OzgeanGit/messageHtml.git
+            revision: main
+            directory: .
