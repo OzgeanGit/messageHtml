@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: message-html
+  namespace: html-app
+spec:
+  selector:
+    app: message-html
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
