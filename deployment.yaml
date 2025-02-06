@@ -13,8 +13,22 @@ spec:
       labels:
         app: message-html
     spec:
+      initContainers:
+        - name: fix-permissions
+          image: busybox:latest
+          command: ["sh", "-c", "chmod -R 755 /mnt/git-repo"]
+          volumeMounts:
+            - name: html-volume
+              mountPath: /mnt/git-repo
       containers:
         - name: nginx
           image: nginx:latest
-          ports:
-            - containerPort: 80
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html-volume
+          gitRepo:
+            repository: https://github.com/OzgeanGit/messageHtml.git
+            revision: main
+            directory: .
